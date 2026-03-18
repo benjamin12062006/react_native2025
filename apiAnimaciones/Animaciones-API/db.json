@@ -1,0 +1,25 @@
+{
+  "clientes": [
+    {
+      "id": 1,
+      "nombre": "Juan Pérez",
+      "telefono": "612345678",
+      "email": "juan.perez@ejemplo.com",
+      "empresa": "Tecnologías Innovadoras S.A."
+    },
+    {
+      "id": 2,
+      "nombre": "María González",
+      "telefono": "623456789",
+      "email": "maria.gonzalez@ejemplo.com",
+      "empresa": "Diseño Creativo SL"
+    },
+    {
+      "id": 3,
+      "nombre": "Carlos Rodríguez",
+      "telefono": "634567890",
+      "email": "carlos.rodriguez@ejemplo.com",
+      "empresa": "Consultores Unidos"
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+# CONFIGURACIÓN DOCKER Y GNS3
+
+## Dockerfile
+FROM ubuntu:20.04
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip qemu-kvm libvirt-daemon-system
+RUN pip3 install gns3-server
+EXPOSE 3080
+CMD ["gns3server", "--local"]
+
+## Comandos Docker
+docker pull frrouting/frr
+docker pull gns3-server:latest
+docker stop gns3-server && docker rm gns3-server
+docker run … gns3-server:latest
+
+# Shell del servidor GNS3
+docker exec -it gns3-server bash
+
+# Shell de un contenedor FRR
+docker exec -it <container_id> sh
+
+## Configuración FRR
+cd /usr/lib/frr
+./watchfrr zebra eigrpd &
+vtysh
+
+# CONFIGURACIÓN EIGRP
+
+## Router FRR-1
+frrouting-frr-1# conf t
+frrouting-frr-1(config)# router eigrp 10
+frrouting-frr-1(config-router)# network 192.168.0.0/24
+frrouting-frr-1(config-router)# network 10.0.0.0/30
+frrouting-frr-1(config-router)# exit
+frrouting-frr-1(config)# exit
+frrouting-frr-1# wr
+
+## Router FRR-2
+frrouting-frr-2# conf t
+frrouting-frr-2(config)# router eigrp 10
+frrouting-frr-2(config-router)# network 172.16.0.0/24
+frrouting-frr-2(config-router)# network 10.0.0.0/30
+frrouting-frr-2(config-router)# exit
+frrouting-frr-2(config)# exit
+frrouting-frr-2# wr
+
+# VERIFICACIÓN DE RUTAS
+
+## Tabla de rutas FRR-1
+frrouting-frr-1# show ip route
+E   10.0.0.0/30 [90/28160] is directly connected, eth0, weight 1, 01:13:39
+C>* 10.0.0.0/30 is directly connected, eth0, 01:13:39
+E>* 172.16.0.0/24 [90/30720] via 10.0.0.2, eth0, weight 1, 01:11:53
+E   192.168.0.0/24 [90/28160] is directly connected, eth1, weight 1, 01:13:28
+C>* 192.168.0.0/24 is directly connected, eth1, 01:13:28
+
+## Tabla de rutas FRR-2
+frrouting-frr-2# show ip route
+E   10.0.0.0/30 [90/28160] is directly connected, eth0, weight 1, 01:10:10
+C>* 10.0.0.0/30 is directly connected, eth0, 01:10:35
+E   172.16.0.0/24 [90/28160] is directly connected, eth1, weight 1, 01:10:03
+C>* 172.16.0.0/24 is directly connected, eth1, 01:10:35
+E>* 192.168.0.0/24 [90/30720] via 10.0.0.1, eth0, weight 1, 01:10:10
+
+# PRUEBAS DE CONECTIVIDAD
+
+## Ping desde PC1 a PC2
+PC1> ping 172.16.0.2
+84 bytes from 172.16.0.2 icmp_seq=1 ttl=62 time=2.555 ms
+
+## Ping desde PC2 a PC1
+PC2> ping 192.168.0.2
+84 bytes from 192.168.0.2 icmp_seq=1 ttl=62 time=1.560 ms
+
+# CRUCIGRAMA - MODELO OSI
+
+## Horizontales:
+1. PDU
+2. TRAMA
+3. FISICA
+4. OSI
+5. ENCAPSULAMIENTO
+6. DIRECCION
+7. TCP
+8. PAQUETE
+9. DATOS
+10. IP
+11. FCS
+12. SEGMENTO
+13. UDP
+14. HUB
+15. CABLE
+16. SESION
+17. MAC
+
+## Verticales:
+1. ISO
+2. RED
+3. DESENCAPSULAMIENTO
+4. APLICACION
+5. PRESENTACION
+6. ENLACE
+7. BITS
+8. TRANSPORTE
+9. ROUTER
+10. SWITCH
+11. NIC
