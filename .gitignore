@@ -1,0 +1,80 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Next.js / React
+.next/
+out/
+build/
+dist/
+
+# React Native
+.expo/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+
+# Android
+android/app/build/
+android/app/build
+android/.idea
+android/.gradle
+android/build/
+android/local.properties
+android/captures/
+android/app/release/
+
+# iOS
+ios/build/
+ios/Pods/
+ios/.symlinks/
+ios/DerivedData/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+ios/*.xcworkspace/xcuserdata/
+ios/*.xcodeproj/xcuserdata/
+
+# Backend / Scripts
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+env/
+.env
+.env.*
+variables.env
+*.env
+*.sqlite3
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.Spotlight-V100
+.Trashes
+.VolumeIcon.icns
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
