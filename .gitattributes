@@ -1,0 +1,5 @@
+# Ocultar CSS (como Tailwind o PrismJS) de las estadísticas de lenguajes de GitHub
+*.css linguist-detectable=false
+*.min.css linguist-detectable=false
+*tailwind.css linguist-detectable=false
+*output.css linguist-detectable=false
